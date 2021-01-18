@@ -1,7 +1,7 @@
 var exec = require('child_process').exec;
 
 module.exports = {
-    fetchProcesses: () => {
+    fetchProcesses: (callback) => {
         const pslist = [];
         const command = 'ps xo pid,comm,state';
         exec(command, function(err, stdout, stderr) {
@@ -16,7 +16,7 @@ module.exports = {
                     pslist.push(element);
                 });
                 pslist.shift();
-                return pslist;
+                callback(err,pslist);
             }
         });
     }
